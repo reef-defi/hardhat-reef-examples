@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require("hardhat-bodhi");
+require("hardhat-reef-chain");
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -23,6 +24,9 @@ module.exports = {
   networks: {
     reef: {
       url: "ws://127.0.0.1:9944",
+    },
+    "testnet-reef": {
+      url: "wss://rpc-testnet.reefscan.com/ws",
     },
   },
 };
