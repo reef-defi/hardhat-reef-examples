@@ -1,27 +1,39 @@
-# Reef Hardhat examples
+# hardhat-reef-examples
 
-Reef Hardhat examples shows the use of [hardhat-plugin](https://github.com/reef-defi/hardhat-bodhi).
+hardhat-reef-examples shows the use of [hardhat-reef](https://github.com/reef-defi/hardhat-reef) plugin to interact with the Reef chain.
 
 
 ## Installing
 
-Install dependencies with `yarn`. Then clone the hardhat plugin repo:
-
-```
-git clone https://github.com/reef-defi/hardhat-bodhi
-```
-
-and link it with
-
-```
-yarn link /path/to/hardhat-bodhi
-```
+Install dependencies with `yarn`.
 
 
 ## Running
 
-See `scripts/` folder for example scripts. Run them with:
+Define your Reef chain URL in `hardhat.config.js` (by default `ws://127.0.0.1:9944`):
 
 ```
-npx hardhat run scripts/deploy.js 
+module.exports = {
+	solidity: "0.7.3",
+	defaultNetwork: "reef",
+	networks: {
+		reef: {
+			url: "ws://127.0.0.1:9944",
+		}
+	},
+};
 ```
+
+See `scripts/` folder for example scripts, e.g. to deploy flipper run:
+
+```
+npx hardhat run scripts/flipper/deploy.js 
+```
+
+After the contract is deployed, you can interact with it using the `flip.js` script:
+
+```
+npx hardhat run scripts/flipper/flip.js 
+```
+
+make sure the `flipperAddress` corresponds to the deployed address.

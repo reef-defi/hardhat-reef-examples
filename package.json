@@ -8,5 +8,8 @@
     "ethers": "^5.0.32",
     "hardhat": "^2.1.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@openzeppelin/contracts": "3.4.0",
+    "@reef-defi/hardhat-reef": "^0.1.1"
+  }
 }
