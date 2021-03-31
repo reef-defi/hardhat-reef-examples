@@ -16,7 +16,6 @@ async function main() {
     artifact.abi,
     hre.reef.wallet
   );
-  console.dir(hre.reef);
 
   // Call flip()
   console.log("Current value:", await flipper.get());
