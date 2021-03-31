@@ -1,6 +1,4 @@
-require("@nomiclabs/hardhat-waffle");
-require("hardhat-bodhi");
-require("hardhat-reef-chain");
+require("@reef-defi/hardhat-reef");
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
