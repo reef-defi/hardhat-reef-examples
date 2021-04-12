@@ -1,37 +1,42 @@
 const hre = require("hardhat");
-const ethers = require("ethers");
 
 async function main() {
-  const tokenAddress = "0x0230135fDeD668a3F7894966b14F42E65Da322e4";
+  // Bob is the owner of Token contract and he wants to send some token amount to dave
+  const bob = await hre.reef.getSignerByName("bob");
+  const dave = await hre.reef.getSignerByName("dave");
+  
+  // Extracting user addresses
+  const bobAddress = await bob.getAddress();
+  const daveAddress = await dave.getAddress();
 
-  // This has to be called to init underlying wallets, will be fixed
-  await hre.reef.getContractFactory("Token");
+  // Token contract address
+  const tokenAddress = "0x4a4fA87b810A30BE84a3a30318D6D9feEae126e5";
 
-  const artifact = await hre.artifacts.readArtifact("Token");
-  const token = new ethers.Contract(
-    tokenAddress,
-    artifact.abi,
-    await hre.reef.getSigner()
-  );
+  // Retrieving Token contract from chain
+  const token = await hre.reef.getContractAt("Token", tokenAddress, bob);
 
-  const transferTo = "0x0000000000000000000000000000000000000001";
-
+  // Let's see Dave's balance
+  let daveBalance = await token.balanceOf(daveAddress);
   console.log(
     "Balance of to address before transfer:",
-    await token.balanceOf(transferTo).then((val) => val.toString())
-  );
-  await token.transfer(transferTo, 10000);
-
+    await daveBalance.toString()
+    );
+    
+  // Bob transfers 10000 tokens to Dave
+  await token.transfer(daveAddress, 10000);
+    
+  // Let's once again check Dave's balance
+  daveBalance = await token.balanceOf(daveAddress);
   console.log(
     "Balance of to address after transfer:",
-    await token.balanceOf(transferTo).then((val) => val.toString())
+    await daveBalance.toString()
   );
 
+  // Bob's amount after transactions
+  const bobBalance = await token.balanceOf(bobAddress);
   console.log(
     "Balance of from address after transfer:",
-    await token
-      .balanceOf(hre.reef.getSigner().then((signer) => signer.getAddress()))
-      .then((val) => val.toString())
+    await bobBalance.toString()
   );
 }
 
