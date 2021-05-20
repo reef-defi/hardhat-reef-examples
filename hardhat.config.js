@@ -23,7 +23,7 @@ module.exports = {
     reef: {
       url: "ws://127.0.0.1:9944",
     },
-    "testnet-reef": {
+    reef_testnet: {
       url: "wss://rpc-testnet.reefscan.com/ws",
     },
   },
