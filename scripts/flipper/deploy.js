@@ -2,11 +2,13 @@ const hre = require("hardhat");
 
 async function main() {
   const alice = await hre.reef.getSignerByName("alice");
+  await alice.claimDefaultAccount();
+
   const Flipper = await hre.reef.getContractFactory("Flipper", alice);
   const flipper = await Flipper.deploy(false);
 
   console.log("Deploy done");
-  console.log("Save the address to change the values in existing contract")
+  console.log("Save the address to change the values in existing contract");
   console.log({
     flipper: flipper.address,
     deploy_hash: flipper.deployTransaction,
