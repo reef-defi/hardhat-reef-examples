@@ -16,12 +16,13 @@ task("accounts", "Prints the list of accounts", async () => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
+var reef_ws = (process.env.REEF_WS) ? process.env.REEF_WS : "ws://127.0.0.1:9944"
 module.exports = {
   solidity: "0.7.3",
   defaultNetwork: "reef",
   networks: {
     reef: {
-      url: "ws://127.0.0.1:9944",
+      url: reef_ws,
     },
     reef_testnet: {
       url: "wss://rpc-testnet.reefscan.com/ws",
