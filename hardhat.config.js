@@ -16,7 +16,7 @@ task("accounts", "Prints the list of accounts", async () => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-var reef_ws = (process.env.REEF_WS) ? process.env.REEF_WS : "ws://127.0.0.1:9944"
+var reef_ws = (process.env.REEF_WS) ? process.env.REEF_WS : "ws://127.0.0.1:9944";
 module.exports = {
   solidity: "0.7.3",
   defaultNetwork: "reef",
