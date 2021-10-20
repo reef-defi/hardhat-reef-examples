@@ -2,9 +2,9 @@ const hre = require("hardhat");
 
 async function main() {
   // Bob is the owner of Token contract and he wants to send some token amount to dave
-  const bob = await hre.reef.getSignerByName("bob");
+  const testnetAccount = await hre.reef.getSignerByName("testnet_account");
   const dave = await hre.reef.getSignerByName("dave");
-  
+
   // Extracting user addresses
   const bobAddress = await bob.getAddress();
   const daveAddress = await dave.getAddress();
@@ -20,11 +20,11 @@ async function main() {
   console.log(
     "Balance of to address before transfer:",
     await daveBalance.toString()
-    );
-    
+  );
+
   // Bob transfers 10000 tokens to Dave
   await token.transfer(daveAddress, 10000);
-    
+
   // Let's once again check Dave's balance
   daveBalance = await token.balanceOf(daveAddress);
   console.log(

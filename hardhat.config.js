@@ -25,6 +25,15 @@ module.exports = {
     },
     reef_testnet: {
       url: "wss://rpc-testnet.reefscan.com/ws",
+      seeds: {
+        testnet_account: "<MNEMONIC_SEED>",
+      },
+    },
+    reef_mainnet: {
+      url: "wss://rpc.reefscan.com/ws",
+      seeds: {
+        mainnet_account: "<MNEMONIC_SEED>",
+      },
     },
   },
 };
