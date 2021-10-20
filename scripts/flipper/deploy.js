@@ -1,10 +1,11 @@
 const hre = require("hardhat");
 
 async function main() {
-  const alice = await hre.reef.getSignerByName("alice");
-  await alice.claimDefaultAccount();
+  // define your testnet_account in hardhat.config.js
+  const testnetAccount = await hre.reef.getSignerByName("testnet_account");
+  await testnetAccount.claimDefaultAccount();
 
-  const Flipper = await hre.reef.getContractFactory("Flipper", alice);
+  const Flipper = await hre.reef.getContractFactory("Flipper", testnetAccount);
   const flipper = await Flipper.deploy(false);
 
   console.log("Deploy done");
