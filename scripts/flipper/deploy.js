@@ -11,7 +11,7 @@ async function main() {
   console.log("Deploy done");
   console.log("Save the address to change the values in existing contract");
   console.log({
-    flipper: flipper.address,
+    flipper_contract_address: flipper.address,
     deploy_hash: flipper.deployTransaction,
   });
   console.log("Initial value:", await flipper.get());
