@@ -16,7 +16,7 @@ async function main() {
   });
   console.log({
     name: await token.name(),
-    initialBalance: await token.totalSupply().toString(),
+    initialBalance: (await token.totalSupply()).toString(),
   });
 }
 
