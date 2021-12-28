@@ -22,12 +22,14 @@ module.exports = {
     },
     reef_testnet: {
       url: "wss://rpc-testnet.reefscan.com/ws",
+      scanUrl: "https://testnet.reefscan.com", // Localhost verification testing: http://localhost:3000
       seeds: {
         testnet_account: "<MNEMONIC_SEED>",
       },
     },
     reef_mainnet: {
       url: "wss://rpc.reefscan.com/ws",
+      scanUrl: "wss://reefscan.com",
       seeds: {
         mainnet_account: "<MNEMONIC_SEED>",
       },
@@ -65,22 +67,27 @@ it is most likely because the accounts defined in the `hardhat.config.js` and JS
 See `scripts/` folder for example scripts, e.g. to deploy flipper run:
 
 ```
-npx hardhat run scripts/flipper/deploy.js 
+yarn hardhat run scripts/flipper/deploy.js 
 ```
 
 After the contract is deployed, you can interact with it using the `flip.js` script:
 
 ```
-npx hardhat run scripts/flipper/flip.js 
+yarn hardhat run scripts/flipper/flip.js 
 ```
 
 make sure the `flipperAddress` corresponds to the deployed address.
+
+Deploy and verify Token contract:
+```
+yarn hardhat run scripts/erc20/deploy_and_verify.js --network reef_testnet
+```
 
 ## Deploying on testnet
 The above commands will deploy on development (local) network by default. To deploy on testnet, use the `--network` flag:
 
 ```
-npx hardhat run scripts/flipper/deploy.js --network reef_testnet 
+yarn hardhat run scripts/flipper/deploy.js --network reef_testnet 
 ```
 
 To get initial REEF tokens on the testnet, visit [dev Matrix chat](https://app.element.io/#/room/#reef:matrix.org) and use the following command:
