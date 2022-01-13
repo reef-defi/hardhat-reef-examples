@@ -1,9 +1,9 @@
 const hre = require("hardhat");
 
 async function main() {
-  // We will deploy Token contract with Bob
+  // We will deploy Token contract with alice
   // It is going to have the pool of 1000000 tokens
-  const acc = await hre.reef.getSignerByName("testnet_account");
+  const acc = await hre.reef.getSignerByName("alice");
   const Token = await hre.reef.getContractFactory("Token", acc);
   const args = [1000000]
   const token = await Token.deploy(1000000);
