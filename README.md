@@ -83,6 +83,12 @@ Deploy and verify Token contract:
 yarn hardhat run scripts/erc20/deploy_and_verify.js --network reef_testnet
 ```
 
+## Integration localhost tests with reef-explorer
+
+```
+yarn hardhat run scripts/integration-test.js
+```
+
 ## Deploying on testnet
 The above commands will deploy on development (local) network by default. To deploy on testnet, use the `--network` flag:
 
