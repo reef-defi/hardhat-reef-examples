@@ -93,12 +93,13 @@ async function main() {
 
   console.log("Deploying testtoken");
   const ERC20 = await reef.getContractFactory("TestToken", signer);
-  const token = await ERC20.deploy("10000000000000000000000");
+  const tokenArgs = ["10000000000000000000000"]
+  const token = await ERC20.deploy(...tokenArgs);
 
   await token.deployed();
   console.log(token.address)
   console.log("Token deployed");
-  await reef.verifyContract(token.address, "TestToken", ["10000000000000000000000"])
+  await reef.verifyContract(token.address, "TestToken", tokenArgs)
 
   console.log("Transfering token founds")
   await token.transfer(address2, 123455);
@@ -113,54 +114,48 @@ async function main() {
     customData: { storageLimit: 1000000 }
   })
   await multiSigWaller.deployed()
+  await reef.verifyContract(multiSigWaller.address, "MultiSigWallet", multiSigWallerData.arguments);
   
   console.log("Deploying MerkleTree")
   const MerkleTree = await reef.getContractFactory("MerkleTree", signer);
   const merkleTree = await MerkleTree.deploy();
   await merkleTree.deployed();
-  
-  // NOT working
-  // const TestIterableMap = await reef.getContractFactory("TestIterableMap", signer);
-  // const iterableMapping = await TestIterableMap.deploy();
-  // await iterableMapping.deployed();
-  // console.log(iterableMapping);
-  
+  await reef.verifyContract(merkleTree.address, "MerkleTree", []);
   
   console.log("Deploying Factory")
   const Factory = await reef.getContractFactory("Factory", signer);
   const factory = await Factory.deploy();
   await factory.deployed();
-  
-  // factory test
-  // const salt = 12345;
-  // const bytecode = await factory.getBytecode(factoryTestContract.arguments[0], factoryTestContract.arguments[1]);
-  // const testContractAddress = await factory.getAddress(bytecode, salt);
-  // // console.log(testContractAddress);
-  // await factory.deployed(bytecode, salt);
+  await reef.verifyContract(factory.address, "Factory", []);
   
   const MinimumProxyContract = await reef.getContractFactory("MinimalProxy", signer);
   const minimumProxyContract = await MinimumProxyContract.deploy();
   await minimumProxyContract.deployed();
+  await reef.verifyContract(minimumProxyContract.address, "MinimalProxy", []);
   
   console.log("Deploying UniDirectionalPaymentChannel")
   const UniDirectionalPayment = await reef.getContractFactory("UniDirectionalPaymentChannel", signer);
   const uniDirectionalPayment = await UniDirectionalPayment.deploy(...uniDirectionalPaymentData.arguments);
   await uniDirectionalPayment.deployed();
-  
+  await reef.verifyContract(uniDirectionalPayment.address, "UniDirectionalPaymentChannel", uniDirectionalPaymentData.arguments);
+
   console.log("Deploying BiDirectionalPaymentChannel")
   const BiDirectionalPayment = await reef.getContractFactory('BiDirectionalPaymentChannel', signer);
   const biDirectionalPayment = await BiDirectionalPayment.deploy(...biDirectionalPaymentData.arguments);
   await biDirectionalPayment.deployed()
+  await reef.verifyContract(biDirectionalPayment.address, "BiDirectionalPaymentChannel", biDirectionalPaymentData.arguments);
   
   console.log("Deploying BasicNFT")
   const BasicNFT = await reef.getContractFactory('BasicNFT', signer);
   const basicNFT = await BasicNFT.deploy();
   await basicNFT.deployed();
+  await reef.verifyContract(basicNFT.address, "BasicNFT", []);
   
   console.log("Deploying EnglishAuction")
   const EnglishAuction = await reef.getContractFactory('EnglishAuction', signer);
   const englishAuction = await EnglishAuction.deploy(...englishAuctionData.arguments);
   await englishAuction.deployed();
+  await reef.verifyContract(englishAuction.address, "EnglishAuction", englishAuctionData.arguments);
 
   console.log("Finished!")
 }
