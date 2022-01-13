@@ -2540,10 +2540,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openzeppelin/contracts@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@openzeppelin/contracts@npm:3.4.0"
-  checksum: 8c9d9b7f5207944c256b127c41fb7e47f3e4bb808e3a75096a77d217870c0d218c64706c9f9304d36e388d451a1eeed5ffdbbbad71a40973aceae349f305f382
+"@openzeppelin/contracts@npm:4.4.0":
+  version: 4.4.0
+  resolution: "@openzeppelin/contracts@npm:4.4.0"
+  checksum: 55565943fff7b52de2e11f0095a37f14d15ed3054e7febe52cbfe86a9c1ef5e6bb45641cbb6480ef2ff2c1663e46bea7863b741b3ab417ea59c6b8aee28188d8
   languageName: node
   linkType: hard
 
@@ -9393,7 +9393,7 @@ fsevents@~2.1.1:
   dependencies:
     "@nomiclabs/hardhat-ethers": ^2.0.2
     "@nomiclabs/hardhat-waffle": ^2.0.1
-    "@openzeppelin/contracts": 3.4.0
+    "@openzeppelin/contracts": 4.4.0
     "@reef-defi/hardhat-reef": ^1.0.3
     chai: ^4.3.4
     ethereum-waffle: ^3.3.0
