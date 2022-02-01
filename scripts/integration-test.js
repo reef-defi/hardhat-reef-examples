@@ -46,6 +46,8 @@ const englishAuctionData = {
   arguments: ["0x82A258cb20E2ADB4788153cd5eb5839615EcE9a0", 231, 1223]
 }
 
+const REEF = "0x0000000000000000000000000000000001000000";
+
 async function main() {
   const signer = await reef.getSignerByName("alice");
   const signer2 = await reef.getSignerByName("bob");
@@ -101,9 +103,12 @@ async function main() {
   console.log("Token deployed");
   await reef.verifyContract(token.address, "TestToken", tokenArgs)
 
-  console.log("Transfering token founds")
+  console.log("Transfering token founds 1")
   await token.transfer(address2, 123455);
+  console.log("Transfering token founds 2")
+  await token.transfer(REEF, 7531);
 
+  console.log("Reef balance: ", (await token.balanceOf(REEF)).toString());
   console.log("Signer balance 1: ", (await token.balanceOf(address1)).toString());
   console.log("Signer balance 2: ", (await token.balanceOf(address2)).toString());
 
@@ -156,6 +161,18 @@ async function main() {
   const englishAuction = await EnglishAuction.deploy(...englishAuctionData.arguments);
   await englishAuction.deployed();
   await reef.verifyContract(englishAuction.address, "EnglishAuction", englishAuctionData.arguments);
+
+  console.log('Deploying NFT-721')
+  const NFT721 = await reef.getContractFactory('TestNFT721', signer);
+  const nft721 = await NFT721.deploy();
+  await nft721.deployed();
+  await reef.verifyContract(nft721.address, 'TestNFT721', []);
+
+  console.log('Deploying NFT-1155')
+  const NFT1155 = await reef.getContractFactory('TestNFT1155', signer);
+  const nft1155 = await NFT1155.deploy();
+  await nft1155.deployed();
+  await reef.verifyContract(nft1155.address, 'TestNFT1155', []);
 
   console.log("Finished!")
 }
