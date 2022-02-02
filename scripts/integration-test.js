@@ -95,7 +95,7 @@ async function main() {
 
   console.log("Deploying testtoken");
   const ERC20 = await reef.getContractFactory("TestToken", signer);
-  const tokenArgs = ["10000000000000000000000"]
+  const tokenArgs = ["10000543221123000000000000000000"]
   const token = await ERC20.deploy(...tokenArgs);
 
   await token.deployed();
@@ -104,9 +104,9 @@ async function main() {
   await reef.verifyContract(token.address, "TestToken", tokenArgs)
 
   console.log("Transfering token founds 1")
-  await token.transfer(address2, 123455);
+  await token.transfer(address2, "123455000000000000000000");
   console.log("Transfering token founds 2")
-  await token.transfer(REEF, 7531);
+  await token.transfer(REEF, "7531000000000000000000");
 
   console.log("Reef balance: ", (await token.balanceOf(REEF)).toString());
   console.log("Signer balance 1: ", (await token.balanceOf(address1)).toString());
@@ -166,13 +166,24 @@ async function main() {
   const NFT721 = await reef.getContractFactory('TestNFT721', signer);
   const nft721 = await NFT721.deploy();
   await nft721.deployed();
+  console.log('Contract deployed')
   await reef.verifyContract(nft721.address, 'TestNFT721', []);
+
+  console.log('Transfering...')
+  console.log(await nft721.awardItem(address2, 'Hello world'))
 
   console.log('Deploying NFT-1155')
   const NFT1155 = await reef.getContractFactory('TestNFT1155', signer);
   const nft1155 = await NFT1155.deploy();
   await nft1155.deployed();
+  console.log('NFT-1155 deployed')
   await reef.verifyContract(nft1155.address, 'TestNFT1155', []);
+
+  console.log('Transfer ERC115 from address1 -> address2, Silver')
+  await nft1155.safeTransferFrom(address1, address2,  2, 1, "0x01")
+
+  console.log('Transfer ERC115 batch from address1 -> address2')
+  await nft1155.safeBatchTransferFrom(address1, address2, [0,1,3,4], [50,100,1,1], "0x01")
 
   console.log("Finished!")
 }
