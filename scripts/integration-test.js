@@ -183,7 +183,10 @@ async function main() {
   await nft1155.safeTransferFrom(address1, address2,  2, 1, "0x01")
 
   console.log('Transfer ERC115 batch from address1 -> address2')
-  await nft1155.safeBatchTransferFrom(address1, address2, [0,1,3,4], [50,100,1,1], "0x01")
+  await nft1155.safeBatchTransferFrom(address1, address2, [0,1,3,4], 
+    ["100000000000", "109494948984320", "10000000", "10000000"], 
+    "0x01"
+  )
 
   console.log("Finished!")
 }
