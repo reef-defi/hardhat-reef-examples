@@ -3,8 +3,8 @@ const hre = require("hardhat");
 // We will deploy Token contract with Bob
 // It is going to have the pool of 1000000 tokens
 async function main() {
-  // define your testnet_account in hardhat.config.js and replace alice 
-  const testnetAccount = await hre.reef.getSignerByName("alice");
+  // define your testnet_account in hardhat.config.js and replace alice
+  const testnetAccount = await hre.reef.getSignerByName("tesnet_account");
   await testnetAccount.claimDefaultAccount();
 
   const Token = await hre.reef.getContractFactory("Token", testnetAccount);
