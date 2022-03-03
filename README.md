@@ -38,7 +38,9 @@ module.exports = {
 };
 ```
 
-Change `<MNEMONIC_SEED>` to your account seed for the corresponding network. Remove the `seeds` dictionary for the unneeded networks. You can have multiple accounts by listing them in dictionary with your custom name:
+Copy `.env.example` to `.env` (`cp .env.example .env`) and update the desired mnemonic variable to your account seed mnemonic for the corresponding network.
+
+You can have multiple accounts by listing them in dictionary with your custom name:
 
 ```
 seeds: {

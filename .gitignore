@@ -11,3 +11,5 @@ artifacts
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+
+.env
