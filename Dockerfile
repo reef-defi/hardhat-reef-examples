@@ -1,6 +1,7 @@
-FROM node:16
+FROM node:fermium
+
 WORKDIR /app
-COPY package.json /app/
-RUN yarn install
+
 COPY . /app/ 
 
+RUN yarn
