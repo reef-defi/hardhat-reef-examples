@@ -23,8 +23,8 @@ module.exports = {
   defaultNetwork: "reef",
   networks: {
     reef: {
-      url: "ws://127.0.0.1:9944",
-      scanUrl: "http://localhost:8000",
+      url: "ws://substrate-node:9944",
+      scanUrl: "http://api:8000",
     },
     reef_testnet: {
       url: "wss://rpc-testnet.reefscan.com/ws",
