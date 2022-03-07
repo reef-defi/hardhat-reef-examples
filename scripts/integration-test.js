@@ -3,7 +3,7 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-const {reef} = require("hardhat");
+const hre = require("hardhat");
 
 const greeterInitialData = { 
   name: "Greeter",
@@ -49,6 +49,10 @@ const englishAuctionData = {
 const REEF = "0x0000000000000000000000000000000001000000";
 
 async function main() {
+  await hre.run("compile");
+
+  const reef = hre.reef;
+
   const signer = await reef.getSignerByName("alice");
   const signer2 = await reef.getSignerByName("bob");
 
