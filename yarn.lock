@@ -2930,9 +2930,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reef-defi/evm-provider@npm:^1.0.3":
-  version: 1.0.5
-  resolution: "@reef-defi/evm-provider@npm:1.0.5"
+"@reef-defi/evm-provider@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@reef-defi/evm-provider@npm:1.0.6"
   dependencies:
     "@open-web3/dev-config": ^0.1.13
     "@open-web3/scanner": ^1.0.1
@@ -2948,23 +2948,23 @@ __metadata:
     "@reef-defi/types": ^1.0.4
     blakejs: ~1.1.0
     ethers: ~5.5.0
-  checksum: b52f64d26b4437bdd012f6c97e27fda313b4cfc8240cfef8dfba4c3be4385f8500036b2960659e8104897bc6a3d699264e6e73873160191f58eee888b93fd77c
+  checksum: 77497fee3b9d935fe0a10380cb9b8a8104cd960bbef8a2c303a5c9f09ad05619709c599b757b6dafc8b18dc4d556410191cd9d7e0afb75ef9a3a220b49c953f4
   languageName: node
   linkType: hard
 
-"@reef-defi/hardhat-reef@npm:^1.0.8":
-  version: 1.0.9
-  resolution: "@reef-defi/hardhat-reef@npm:1.0.9"
+"@reef-defi/hardhat-reef@npm:^1.0.11":
+  version: 1.0.11
+  resolution: "@reef-defi/hardhat-reef@npm:1.0.11"
   dependencies:
-    "@reef-defi/evm-provider": ^1.0.3
+    "@reef-defi/evm-provider": ^1.0.6
     "@types/validator": ^13.1.3
     axios: ^0.24.0
     fs-extra: ^9.1.0
     node-fetch: ^2.6.1
     portscanner: ^2.2.0
   peerDependencies:
-    hardhat: ^2.0.0
-  checksum: c64e5cedcaa052e7d2669097d3994b709d7e2930a7a142bc8d7859098871cb7165236214d9b64a218e793de7e3f763c19a691d2de64f616fd7b56e9240a4bfde
+    hardhat: ~2.6.7
+  checksum: 591cd0b3b1b1ec222b6ed3bd010b6312bd6a275da149aa1b9ca7f5c30025e46b9436ba1c009e6dc7ca113465d9835620c799083138ef63be8e1c821b22a20b3b
   languageName: node
   linkType: hard
 
@@ -9417,7 +9417,7 @@ __metadata:
     "@nomiclabs/hardhat-ethers": ^2.0.2
     "@nomiclabs/hardhat-waffle": ^2.0.1
     "@openzeppelin/contracts": 4.4.0
-    "@reef-defi/hardhat-reef": ^1.0.8
+    "@reef-defi/hardhat-reef": ^1.0.11
     chai: ^4.3.4
     dotenv: ^16.0.0
     ethereum-waffle: ^3.3.0
