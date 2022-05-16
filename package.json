@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "4.4.0",
-    "@reef-defi/hardhat-reef": "^1.0.8",
+    "@reef-defi/hardhat-reef": "^1.0.12",
     "dotenv": "^16.0.0"
   }
 }
