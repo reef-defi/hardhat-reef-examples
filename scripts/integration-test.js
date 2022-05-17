@@ -49,6 +49,7 @@ const englishAuctionData = {
 const REEF = "0x0000000000000000000000000000000001000000";
 
 async function main() {
+  await hre.run("compile");
   const reef = hre.reef;
 
   const signer = await reef.getSignerByName("alice");
