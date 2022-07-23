@@ -68,53 +68,52 @@ async function main() {
   console.log("Signer balance 1: ", reefBalance1.toString());
   console.log("Signer balance 2: ", reefBalance2.toString());
 
+  console.log('Deploying Greeter');
   const Greeter = await reef.getContractFactory("Greeter", signer);
   const greeter = await Greeter.deploy(...greeterInitialData.arguments);
 
   await greeter.deployed();
-  await reef.verifyContract(greeter.address, "Greeter", greeterInitialData.arguments)
-
+  
   console.log("Greeter deployed to:", greeter.address);
-
+  
   await greeter.setGreeting("Danes je lep dan");
   console.log("Greeting: ", await greeter.greet());
-
+  
   const Creator = await reef.getContractFactory("Creator", signer);
   console.log("Deploying creator");
   const creator = await Creator.deploy();
-
+  
   await creator.deployed();
-  await reef.verifyContract(creator.address, "Creator", []);
-
+  
   console.log("Triggering contract creation in creator");
   const i1 = await creator.addItem("1");
   const i2 = await creator.addItem("2");
 
   console.log("item address: ", i1);
   console.log("item address: ", i2);
-
+  
   const items = await creator.items;
   console.log("items: ", items);
-
+  
   console.log("Deploying testtoken");
   const ERC20 = await reef.getContractFactory("TestToken", signer);
   const tokenArgs = ["10000543221123000000000000000000"]
   const token = await ERC20.deploy(...tokenArgs);
-
+  
   await token.deployed();
   console.log(token.address)
   console.log("Token deployed");
-  await reef.verifyContract(token.address, "TestToken", tokenArgs)
 
   console.log("Transfering token founds 1")
-  await token.transfer(address2, "123455000000000000000000");
+  await token.transfer(address2, "155000000000000000000");
   console.log("Transfering token founds 2")
-  await token.transfer(REEF, "7531000000000000000000");
-
+  await token.transfer(REEF, "71000000000000000000");
+  
   console.log("Reef balance: ", (await token.balanceOf(REEF)).toString());
   console.log("Signer balance 1: ", (await token.balanceOf(address1)).toString());
   console.log("Signer balance 2: ", (await token.balanceOf(address2)).toString());
-
+  
+  
   console.log("Deploying MultiSigWallet")
   const MultiSigWallet = await reef.getContractFactory("MultiSigWallet", signer);
   const multiSigWaller = await MultiSigWallet.deploy(...multiSigWallerData.arguments, {
@@ -122,72 +121,104 @@ async function main() {
     customData: { storageLimit: 1000000 }
   })
   await multiSigWaller.deployed()
-  await reef.verifyContract(multiSigWaller.address, "MultiSigWallet", multiSigWallerData.arguments);
   
   console.log("Deploying MerkleTree")
   const MerkleTree = await reef.getContractFactory("MerkleTree", signer);
   const merkleTree = await MerkleTree.deploy();
   await merkleTree.deployed();
-  await reef.verifyContract(merkleTree.address, "MerkleTree", []);
   
   console.log("Deploying Factory")
   const Factory = await reef.getContractFactory("Factory", signer);
   const factory = await Factory.deploy();
   await factory.deployed();
-  await reef.verifyContract(factory.address, "Factory", []);
   
   const MinimumProxyContract = await reef.getContractFactory("MinimalProxy", signer);
   const minimumProxyContract = await MinimumProxyContract.deploy();
   await minimumProxyContract.deployed();
-  await reef.verifyContract(minimumProxyContract.address, "MinimalProxy", []);
   
   console.log("Deploying UniDirectionalPaymentChannel")
   const UniDirectionalPayment = await reef.getContractFactory("UniDirectionalPaymentChannel", signer);
   const uniDirectionalPayment = await UniDirectionalPayment.deploy(...uniDirectionalPaymentData.arguments);
   await uniDirectionalPayment.deployed();
-  await reef.verifyContract(uniDirectionalPayment.address, "UniDirectionalPaymentChannel", uniDirectionalPaymentData.arguments);
-
+  
   console.log("Deploying BiDirectionalPaymentChannel")
   const BiDirectionalPayment = await reef.getContractFactory('BiDirectionalPaymentChannel', signer);
   const biDirectionalPayment = await BiDirectionalPayment.deploy(...biDirectionalPaymentData.arguments);
   await biDirectionalPayment.deployed()
-  await reef.verifyContract(biDirectionalPayment.address, "BiDirectionalPaymentChannel", biDirectionalPaymentData.arguments);
   
   console.log("Deploying BasicNFT")
   const BasicNFT = await reef.getContractFactory('BasicNFT', signer);
   const basicNFT = await BasicNFT.deploy();
   await basicNFT.deployed();
-  await reef.verifyContract(basicNFT.address, "BasicNFT", []);
   
   console.log("Deploying EnglishAuction")
   const EnglishAuction = await reef.getContractFactory('EnglishAuction', signer);
   const englishAuction = await EnglishAuction.deploy(...englishAuctionData.arguments);
   await englishAuction.deployed();
-  await reef.verifyContract(englishAuction.address, "EnglishAuction", englishAuctionData.arguments);
-
+    
   console.log('Deploying NFT-721')
   const NFT721 = await reef.getContractFactory('TestNFT721', signer);
   const nft721 = await NFT721.deploy();
   await nft721.deployed();
-  console.log('Contract deployed')
-  await reef.verifyContract(nft721.address, 'TestNFT721', []);
-
-  console.log('Transfering...')
-  console.log(await nft721.awardItem(address2, 'Hello world'))
 
   console.log('Deploying NFT-1155')
   const NFT1155 = await reef.getContractFactory('TestNFT1155', signer);
   const nft1155 = await NFT1155.deploy();
   await nft1155.deployed();
-  console.log('NFT-1155 deployed')
-  await reef.verifyContract(nft1155.address, 'TestNFT1155', []);
+
+  console.log('Error contract');
+  const ErrorContract = await reef.getContractFactory('ErrorContract', signer);
+  const errorContract = await ErrorContract.deploy();
+  await errorContract.deployed();
+
+  console.log('Throwing exception evm event');
+  try {
+    await errorContract.throwException();
+  } catch(e) {}
+
+  // console.log('Transfer ERC115 from address1 -> address2, Silver')
+  // await nft1155.safeTransferFrom(address1, address2,  2, 1, "0x01")
+
+  console.log('Transfer ERC115 batch from address1 -> address2')
+  await nft1155.safeBatchTransferFrom(address1, address2, [0,1,3,4], 
+    ["100000000", "10949494320", "10000", "10000"], 
+    "0x01"
+  )
+
+  await reef.verifyContract(greeter.address, "Greeter", greeterInitialData.arguments)
+  await reef.verifyContract(creator.address, "Creator", []);
+  await reef.verifyContract(token.address, "TestToken", tokenArgs)
+  await reef.verifyContract(multiSigWaller.address, "MultiSigWallet", multiSigWallerData.arguments);
+  await reef.verifyContract(merkleTree.address, "MerkleTree", []);
+  await reef.verifyContract(factory.address, "Factory", []);
+  await reef.verifyContract(minimumProxyContract.address, "MinimalProxy", []);
+  await reef.verifyContract(uniDirectionalPayment.address, "UniDirectionalPaymentChannel", uniDirectionalPaymentData.arguments);
+  await reef.verifyContract(biDirectionalPayment.address, "BiDirectionalPaymentChannel", biDirectionalPaymentData.arguments);
+  await reef.verifyContract(basicNFT.address, "BasicNFT", []);
+  await reef.verifyContract(englishAuction.address, "EnglishAuction", englishAuctionData.arguments);
+  await reef.verifyContract(nft721.address, 'TestNFT721', []);
+  await reef.verifyContract(nft1155.address, 'TestNFT1155', []); 
+  await reef.verifyContract(errorContract.address, 'ErrorContract', [])
+  
+  console.log('NFT732 Transfering...')
+  console.log(await nft721.awardItem(address2, 'Hello world'))
+  
+  console.log("Transfering token founds 1")
+  await token.transfer(address2, "123455000000000000000000");
+  console.log("Transfering token founds 2")
+  await token.transfer(REEF, "7531000000000000000000");
+  
+  console.log("Reef balance: ", (await token.balanceOf(REEF)).toString());
+  console.log("Signer balance 1: ", (await token.balanceOf(address1)).toString());
+  console.log("Signer balance 2: ", (await token.balanceOf(address2)).toString());
+
 
   console.log('Transfer ERC115 from address1 -> address2, Silver')
   await nft1155.safeTransferFrom(address1, address2,  2, 1, "0x01")
 
   console.log('Transfer ERC115 batch from address1 -> address2')
   await nft1155.safeBatchTransferFrom(address1, address2, [0,1,3,4], 
-    ["100000000000", "109494948984320", "10000000", "10000000"], 
+    ["100000000", "1094948984320", "1000000", "1000000"], 
     "0x01"
   )
 
