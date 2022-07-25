@@ -4,6 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
+const axios = require('axios');
 
 const greeterInitialData = { 
   name: "Greeter",
@@ -51,6 +52,13 @@ const REEF = "0x0000000000000000000000000000000001000000";
 async function main() {
   await hre.run("compile");
   const reef = hre.reef;
+
+  const result = await axios.get(`${hre.config.networks.reef.scanUrl}/api/erc20`)
+    .then((res) => res.data.tokens);
+
+  if (!result && result.length < 2) {
+    throw new Error('Api is not detected');
+  }
 
   const signer = await reef.getSignerByName("alice");
   const signer2 = await reef.getSignerByName("bob");

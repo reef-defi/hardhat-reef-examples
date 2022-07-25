@@ -11,6 +11,7 @@
   "dependencies": {
     "@openzeppelin/contracts": "4.4.0",
     "@reef-defi/hardhat-reef": "^1.0.13",
+    "axios": "^0.27.2",
     "dotenv": "^16.0.0"
   }
 }
