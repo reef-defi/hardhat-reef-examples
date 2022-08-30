@@ -4,7 +4,7 @@ const hre = require("hardhat");
 // It is going to have the pool of 1000000 tokens
 async function main() {
   // define your testnet_account in hardhat.config.js and replace alice
-  const testnetAccount = await hre.reef.getSignerByName("tesnet_account");
+  const testnetAccount = await hre.reef.getSignerByName("testnet_account");
   await testnetAccount.claimDefaultAccount();
 
   const Token = await hre.reef.getContractFactory("Token", testnetAccount);
